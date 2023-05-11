@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import Http404, HttpResponse
 
 DATA = {
     'omlet': {
@@ -28,3 +29,16 @@ DATA = {
 #     'ингредиент2': количество2,
 #   }
 # }
+
+def main_view(request):
+    dishes = (', ').join(DATA.keys())
+    #print (dishes)
+    return HttpResponse(f'Для получения рецепта необходимо в строке адреса указать наименование блюд и количество порций.\n Варианты {dishes}. Например: http://127.0.0.1:8000/omlet/ ')
+
+def view_ingrids(request, dish):
+    if dish in DATA.keys():
+        context = {'recipe': DATA.get(dish)}
+        #print(context)
+    else:
+        raise Http404
+    return render(request, 'calculator/index.html', context)
