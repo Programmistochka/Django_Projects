@@ -32,13 +32,18 @@ DATA = {
 
 def main_view(request):
     dishes = (', ').join(DATA.keys())
-    #print (dishes)
-    return HttpResponse(f'Для получения рецепта необходимо в строке адреса указать наименование блюд и количество порций.\n Варианты {dishes}. Например: http://127.0.0.1:8000/omlet/ ')
+    return HttpResponse(f'Для получения рецепта необходимо в строке адреса указать наименование блюд и количество порций.\n Варианты {dishes}. Можно указать количество порций через знак "?". Например: http://127.0.0.1:8000/omlet?servings=2 ')
 
 def view_ingrids(request, dish):
     if dish in DATA.keys():
-        context = {'recipe': DATA.get(dish)}
-        #print(context)
+        portions = int(request.GET.get("servings", 1))
+        print(portions)
+        context = {
+            'recipe': DATA.get(dish)
+            }
+        for ingr, amount in context['recipe'].items():
+                amount*=portions
+                context['recipe'][ingr]=round(amount, 2)  
     else:
         raise Http404
     return render(request, 'calculator/index.html', context)
