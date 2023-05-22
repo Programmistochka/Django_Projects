@@ -4,7 +4,7 @@
 1.1-first-project/first_project/.vscode
 1.1-first-project/first_project/env_firstpr
 1.2-requests-templates/recipes/env_recipes/
-
+1.2-requests-templates/pagination/env_paginat/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

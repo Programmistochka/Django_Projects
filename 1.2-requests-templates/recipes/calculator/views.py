@@ -37,7 +37,7 @@ def main_view(request):
 def view_ingrids(request, dish):
     if dish in DATA.keys():
         portions = int(request.GET.get("servings", 1))
-        print(portions)
+        #print(portions)
         context = {
             'recipe': DATA.get(dish)
             }
