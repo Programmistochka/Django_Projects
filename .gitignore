@@ -5,6 +5,7 @@
 1.1-first-project/first_project/env_firstpr
 1.2-requests-templates/recipes/env_recipes/
 1.2-requests-templates/pagination/env_paginat/
+2.1-databases/work_with_database/env_wwdb
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
