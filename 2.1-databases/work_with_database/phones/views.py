@@ -8,9 +8,18 @@ def index(request):
 
 def show_catalog(request):
     template = 'catalog.html'
-    phones_inf = Phone.objects.all()
-    context = {'phones': phones_inf,
-               'sort': sort_type}
+    phones_inf = Phone.objects.all()   
+
+    # Сортировка объектов из БД по полям name и price
+    # Вид сортировки в функцию передается из Get-параметра 'sort'
+    sort_type = request.GET.get('sort')
+    if sort_type == 'name':
+        phones_inf = phones_inf.order_by('name')
+    elif sort_type == 'min_price':
+        phones_inf = phones_inf.order_by('price')
+    elif sort_type == 'max_price':
+        phones_inf = phones_inf.order_by('-price')    
+    context = {'phones': phones_inf}
     return render(request, template, context)
 
 
