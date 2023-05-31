@@ -13,8 +13,8 @@
                 <a href="{% url 'book' book.pub_date %}">
                     <h2>{{ book.name }}</h2>
                 </a>
-                <p>{{ book.author }}</p>
-                <p>{{ book.pub_date }}</p>
+                <p>Автор: {{ book.author }}</p>
+                <p>Дата публикации: {{ book.pub_date | date:'Y-m-d' }}</p>
             </div>
         </div>
         {% endfor %}
