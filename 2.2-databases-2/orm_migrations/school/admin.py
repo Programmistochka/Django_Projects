@@ -11,6 +11,3 @@ class StudentAdmin(admin.ModelAdmin):
 @admin.register(Teacher)
 class TeacherAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'subject']
-
-class TeachersInline(admin.TabularInline):
-    model = Student
