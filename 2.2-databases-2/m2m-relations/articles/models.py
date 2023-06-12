@@ -17,12 +17,12 @@ class Article(models.Model):
 
 class Tag(models.Model):
 
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, verbose_name='Название')
     articles = models.ManyToManyField(Article, related_name='tags', through='Scope')
-
+    
 class Scope(models.Model):
 
     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='scopes')
-    tag = models.ForeignKey(Tag, on_delete=models.CASCADE, related_name='scopes')
-    is_main = models.BooleanField(null=False, default=False)
+    tag = models.ForeignKey(Tag, on_delete=models.CASCADE, related_name='scopes', verbose_name='Разделы')
+    is_main = models.BooleanField(null=False, default=False, verbose_name='Основной')
     
