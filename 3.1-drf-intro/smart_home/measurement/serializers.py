@@ -3,13 +3,13 @@ from .models import Sensor, Measurement
 
 # TODO: опишите необходимые сериализаторы
 
-class SensorSerializer (serializers.Serializer):
+class SensorSerializer (serializers.ModelSerializer):
     
     class Meta:
         model = Sensor
-        fields = ['name', 'description']
+        fields = ['id', 'name', 'description']
 
-class MeasurementSerializer (serializers.Serializer):
+class MeasurementSerializer (serializers.ModelSerializer):
 
     class Meta:
         model = Measurement

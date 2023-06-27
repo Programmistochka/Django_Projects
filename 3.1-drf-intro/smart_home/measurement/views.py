@@ -19,6 +19,9 @@ class SensorsView (ListAPIView):
     # POST {{baseUrl}}/sensors/
     # Указываются название и описание датчика
     def post (self, request):
+        id = request
+          
+        #Sensor(name = )
         return Response({'status': 'ok'})
 
     # Изменение датчика

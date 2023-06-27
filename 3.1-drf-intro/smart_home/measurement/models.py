@@ -7,7 +7,7 @@ class Sensor(models.Model):
     description = models.TextField()
 
 class Measurement(models.Model):
-    id = models.IntegerField(primary_key=True)
+    sensor_id = models.ForeignKey(Sensor, on_delete = models.CASCADE, related_name='mesurements')
     temperature = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add = True) #автозаполнение даты и времени создания записи
     
