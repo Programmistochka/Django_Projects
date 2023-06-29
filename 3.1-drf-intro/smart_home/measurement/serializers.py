@@ -16,7 +16,7 @@ class MeasurementSerializer(serializers.ModelSerializer):
         fields = ['sensor_id', 'temperature', 'created_at']
 
 class MeasurementsSerializer(serializers.ModelSerializer):
-    """Сериализатор для ввода или отображения детальной информации показаний"""
+    """Сериализатор для отображения детальной информации показаний"""
     class Meta:
         model = Measurement
         fields = ['temperature', 'created_at']
@@ -24,7 +24,7 @@ class MeasurementsSerializer(serializers.ModelSerializer):
 class SensorDetailSerializer(serializers.ModelSerializer):
     """Cериализатор с подробной информацией по датчику"""
     measurements = MeasurementsSerializer(read_only=True, many=True)
-
+    
     class Meta:
         model = Sensor
         fields = ['id', 'name', 'description', 'measurements']
