@@ -1,4 +1,6 @@
 from rest_framework.decorators import api_view
+from django.http import Http404
+from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.generics import ListAPIView, RetrieveAPIView, ListCreateAPIView, RetrieveUpdateAPIView, CreateAPIView
 
@@ -9,18 +11,20 @@ from .serializers import SensorSerializer, MeasurementSerializer, SensorDetailSe
 # TODO: ListCreateAPIView, RetrieveUpdateAPIView, CreateAPIView
 
 class SensorListCreate(ListCreateAPIView):
+    # Вывод всех датчиков по GET-запросу:
+    # GET {{baseUrl}}/sensors/
     queryset = Sensor.objects.all()
     serializer_class = SensorSerializer 
 
 
-
-
-class SensorsView (ListAPIView):
-    # Вывод всех датчиков по GET-запросу:
-    # GET {{baseUrl}}/sensors/
-    queryset = Sensor.objects.all()
-    serializer_class = SensorSerializer
-
+    def post (self, request):
+        serializer = SensorSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+   
 class MeasurementsListView (ListAPIView):
     # Вывод всех измерений по GET-запросу:
     # GET {{baseUrl}}/measurements_list/
