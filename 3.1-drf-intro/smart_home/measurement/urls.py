@@ -5,6 +5,6 @@ urlpatterns = [
     # TODO: зарегистрируйте необходимые маршруты
     path('sensors/', SensorListCreate.as_view()),
     path('sensors/<pk>/', SensorDetailView.as_view()),
-    path('measurements_list/', MeasurementsListView.as_view())
+    path('measurements/', MeasurementsListView().as_view())
 
 ]
