@@ -24,15 +24,6 @@ class SensorListCreate(ListCreateAPIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
-    
-    # Обновление информации о датчике по POST-запросу:
-    # PATCH {{baseUrl}}/sensors/<id_sensor>/
-    def patch (self, request):
-        serializer = SensorSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
    
 class MeasurementsListView (ListCreateAPIView):
@@ -52,8 +43,9 @@ class MeasurementsListView (ListCreateAPIView):
    
 
 class SensorDetailView (RetrieveUpdateAPIView):
-    # Вывод информации по указанному в запросе датчику с детализацией измерений
+    # Вывод или обновление информации по указанному в запросе датчику с детализацией измерений
     # GET {{baseUrl}}/sensors/<id_sensor>/
+    # PATCH {{baseUrl}}/sensors/<id_sensor>/
     queryset = Sensor.objects.all()
     serializer_class = SensorDetailSerializer
     
