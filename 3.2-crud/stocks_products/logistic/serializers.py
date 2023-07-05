@@ -55,7 +55,7 @@ class StockSerializer(serializers.ModelSerializer):
             # КАК ПРОВЕРИТЬ ЕСТЬ ЛИ ПРОДУКТ НА СКЛАДЕ?
             # сравнить со значениями в таблице Product с идентификатором данной позиции
             
-            prod_in_stock = Product.objects.filter(positions=position['product'])
+            prod_in_stock = Product.objects.filter(positions=position)
             print('prod_in_stock :', prod_in_stock)
             if position in prod_in_stock:
             # если данная позиция уже есть на складе
