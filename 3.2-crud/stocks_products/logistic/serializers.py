@@ -45,13 +45,29 @@ class StockSerializer(serializers.ModelSerializer):
         positions = validated_data.pop('positions')
         # обновление данных склада по его параметрам 
         stock = super().update(instance, validated_data)
-
+        
         # обновление связанных таблиц
         # в данном случае: таблицы StockProduct
         # с помощью списка positions
+        
         for position in positions:
-            #if position['product'] in StockProduct.objects.get(stock = stock).items():
-            StockProduct.objects.update(stock = stock,**position)
-            #else:            
-            #   StockProduct.objects.update(stock = stock,**position) 
+            print ('position: ', position)
+            # КАК ПРОВЕРИТЬ ЕСТЬ ЛИ ПРОДУКТ НА СКЛАДЕ?
+            # сравнить со значениями в таблице Product с идентификатором данной позиции
+            
+            prod_in_stock = Product.objects.filter(positions=position['product'])
+            print('prod_in_stock :', prod_in_stock)
+            if position in prod_in_stock:
+            # если данная позиция уже есть на складе
+            # все поля по данной позиции необходимо обновить
+                print ('Есть на складе, обновлена')
+                # StockProduct.objects.update(stock = stock,**position)
+                pass
+            else:
+            # если данной позиции нет на складе
+            # необходимо ее создать
+                print ('Нет на складе, добавлена')
+                # StockProduct.objects.create(stock = stock,**position)
+                pass 
+
         return stock
