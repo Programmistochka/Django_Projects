@@ -7,14 +7,14 @@ POST {{baseUrl}}/products/
 Content-Type: application/json
 
 {
-  "title": "Картошка",
+  "title": "Морковь",
   "description": "Овощи"
 }
 
 ###
 
 # получение продуктов +
-GET {{baseUrl}}/products/
+GET {{baseUrl}}/products/?limit=2&offset=1
 Content-Type: application/json
 
 ###
@@ -42,7 +42,7 @@ Content-Type: application/json
 ###
 
 # получение складов +
-GET {{baseUrl}}/stocks/
+GET {{baseUrl}}/stocks/?limit=5&offset=5
 Content-Type: application/json
 ###
 
@@ -88,7 +88,7 @@ Content-Type: application/json
 ###
 
 # поиск складов, где есть определенный продукт +
-GET {{baseUrl}}/stocks/?products=5
+GET {{baseUrl}}/stocks/?products=8
 Content-Type: application/json
 
 ###
