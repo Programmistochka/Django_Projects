@@ -42,6 +42,7 @@ class StockSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         """Обновление данных по складу с позициями по продуктам"""
         # получение связанных данных для других таблиц
+        print(validated_data)
         positions = validated_data.pop('positions')
         # обновление данных склада по его параметрам 
         stock = super().update(instance, validated_data)
@@ -49,25 +50,35 @@ class StockSerializer(serializers.ModelSerializer):
         # обновление связанных таблиц
         # в данном случае: таблицы StockProduct
         # с помощью списка positions
-        
         for position in positions:
-            print ('position: ', position)
-            # КАК ПРОВЕРИТЬ ЕСТЬ ЛИ ПРОДУКТ НА СКЛАДЕ?
-            # сравнить со значениями в таблице Product с идентификатором данной позиции
-            
-            prod_in_stock = Product.objects.filter(positions=position)
-            print('prod_in_stock :', prod_in_stock)
-            if position in prod_in_stock:
-            # если данная позиция уже есть на складе
-            # все поля по данной позиции необходимо обновить
-                print ('Есть на складе, обновлена')
-                # StockProduct.objects.update(stock = stock,**position)
-                pass
-            else:
-            # если данной позиции нет на складе
-            # необходимо ее создать
-                print ('Нет на складе, добавлена')
-                # StockProduct.objects.create(stock = stock,**position)
-                pass 
-
+            #StockProduct.objects.update(stock = stock,**position)
+            #StockProduct.objects.update(stock = stock, product = position['product'], quantity = position['quantity'], price = position['price'])
+            ProductPositionSerializer.update(self, instance = position['product'], validated_data = {'quantity': position['quantity'], 'price': position['price']} )
         return stock
+
+
+
+        #     sp=StockProduct.objects.filter(product = position['product']).data
+        #     print(sp)
+        #     #ProductPositionSerializer.update(self, instance = position['product'], validated_data = {'quantity': position['quantity'], 'price': position['price']} )
+        
+        # for position in positions:
+        #     print ('position: ', position)
+        #     # КАК ПРОВЕРИТЬ ЕСТЬ ЛИ ПРОДУКТ НА СКЛАДЕ?
+        #     # сравнить со значениями в таблице Product с идентификатором данной позиции
+            
+        #     prod_in_stock = Product.objects.filter(positions=position)
+        #     print('prod_in_stock :', prod_in_stock)
+        #     if position in prod_in_stock:
+        #     # если данная позиция уже есть на складе
+        #     # все поля по данной позиции необходимо обновить
+        #         print ('Есть на складе, обновлена')
+        #         # StockProduct.objects.update(stock = stock,**position)
+        #         pass
+        #     else:
+        #     # если данной позиции нет на складе
+        #     # необходимо ее создать
+        #         print ('Нет на складе, добавлена')
+        #         # StockProduct.objects.create(stock = stock,**position)
+        #         pass 
+        
