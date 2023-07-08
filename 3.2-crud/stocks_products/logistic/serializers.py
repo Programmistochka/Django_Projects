@@ -51,34 +51,6 @@ class StockSerializer(serializers.ModelSerializer):
         # в данном случае: таблицы StockProduct
         # с помощью списка positions
         for position in positions:
-            #StockProduct.objects.update(stock = stock,**position)
-            #StockProduct.objects.update(stock = stock, product = position['product'], quantity = position['quantity'], price = position['price'])
-            ProductPositionSerializer.update(self, instance = position['product'], validated_data = {'quantity': position['quantity'], 'price': position['price']} )
+            StockProduct.objects.update_or_create(stock = stock, product = position['product'], defaults = dict(quantity = position['quantity'], price = position['price']))
         return stock
-
-
-
-        #     sp=StockProduct.objects.filter(product = position['product']).data
-        #     print(sp)
-        #     #ProductPositionSerializer.update(self, instance = position['product'], validated_data = {'quantity': position['quantity'], 'price': position['price']} )
-        
-        # for position in positions:
-        #     print ('position: ', position)
-        #     # КАК ПРОВЕРИТЬ ЕСТЬ ЛИ ПРОДУКТ НА СКЛАДЕ?
-        #     # сравнить со значениями в таблице Product с идентификатором данной позиции
-            
-        #     prod_in_stock = Product.objects.filter(positions=position)
-        #     print('prod_in_stock :', prod_in_stock)
-        #     if position in prod_in_stock:
-        #     # если данная позиция уже есть на складе
-        #     # все поля по данной позиции необходимо обновить
-        #         print ('Есть на складе, обновлена')
-        #         # StockProduct.objects.update(stock = stock,**position)
-        #         pass
-        #     else:
-        #     # если данной позиции нет на складе
-        #     # необходимо ее создать
-        #         print ('Нет на складе, добавлена')
-        #         # StockProduct.objects.create(stock = stock,**position)
-        #         pass 
         
