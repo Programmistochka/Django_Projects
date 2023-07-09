@@ -7,23 +7,24 @@ POST {{baseUrl}}/products/
 Content-Type: application/json
 
 {
-  "title": "Морковь",
-  "description": "Овощи"
+  "title": "Апельсин",
+  "description": "Фрукты"
 }
 
 ###
 
 # получение продуктов +
-GET {{baseUrl}}/products/?limit=2&offset=1
+GET {{baseUrl}}/products/?page=1
 Content-Type: application/json
 
 ###
 
 # обновление продукта +
-PATCH {{baseUrl}}/products/5/
+PATCH {{baseUrl}}/products/2/
 Content-Type: application/json
 
 {
+  "title": "Помидор",
   "description": "Самые сочные и ароматные помидорки"
 }
 
@@ -36,13 +37,13 @@ Content-Type: application/json
 ###
 
 # поиск продуктов по названию и описанию +
-GET {{baseUrl}}/products/?search=свекла
+GET {{baseUrl}}/products/?search=помидор
 Content-Type: application/json
 
 ###
 
 # получение складов +
-GET {{baseUrl}}/stocks/?limit=5&offset=5
+GET {{baseUrl}}/stocks/?limit=5
 Content-Type: application/json
 ###
 
@@ -51,17 +52,17 @@ POST {{baseUrl}}/stocks/
 Content-Type: application/json
 
 {
-  "address": "Адрес6",
+  "address": "Адрес1",
   "positions": [
     {
-      "product": 4,
-      "quantity": 580,
-      "price": 145.50
+      "product": 2,
+      "quantity": 50,
+      "price": 555
     },
     {
-      "product": 7,
-      "quantity": 1000,
-      "price": 190
+      "product": 3,
+      "quantity": 70,
+      "price": 335
     }
   ]
 }
@@ -69,17 +70,17 @@ Content-Type: application/json
 ###
 
 # обновляем записи на складе +
-PATCH {{baseUrl}}/stocks/14/
+PATCH {{baseUrl}}/stocks/3/
 Content-Type: application/json
 
 {
   "positions": [{
-      "product": 8,
+      "product": 1,
       "quantity": 100,
       "price": 150
     },
     {
-      "product": 7,
+      "product": 2,
       "quantity": 230,
       "price": 145
     }]
@@ -88,11 +89,11 @@ Content-Type: application/json
 ###
 
 # поиск складов, где есть определенный продукт +
-GET {{baseUrl}}/stocks/?products=8
+GET {{baseUrl}}/stocks/?products=1
 Content-Type: application/json
 
 ###
 
 # удаление склада +
-DELETE {{baseUrl}}/stocks/13
+DELETE {{baseUrl}}/stocks/3/
 Content-Type: application/json
